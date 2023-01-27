@@ -334,3 +334,129 @@ rest2.owner &&= 'anonymous';
 
 console.log(rest1, rest2);
 */
+
+//////// for of loop ////////
+/*
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+// loop over elements of the array
+for (const element of menu) console.log(element);
+
+// loop over entries (index, item) of the array
+for (const [i, element] of menu.entries()) {
+  console.log(`${i + 1}. ${element}`);
+}
+
+console.log([...menu.entries()]);
+*/
+
+//////// enhanced object literals ////////
+/*
+const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+const openingHours = {
+  // ES6 enhanced object literal - compute property names
+  [weekdays[3]]: {
+    open: 12,
+    close: 22,
+  },
+  [weekdays[4]]: {
+    open: 11,
+    close: 23,
+  },
+  [`day-${2 + 4}`]: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
+
+const restaurant2 = {
+  name: 'Classico Italiano',
+  location: 'Via Angelo Tavanti 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+
+  // ES6 enhanced object literal - use object instead of key/value
+  openingHours,
+
+  // ES6 enhanced object literal - get rid of semi-colon and function keyword
+  order(starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+
+  orderDelivery({ time = '20:00', address, mainIndex = 0, starterIndex = 1 }) {
+    console.log(
+      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} to ${address} at ${time}`
+    );
+  },
+
+  orderPasta(ing1, ing2, ing3) {
+    console.log(
+      `here is your delicious pasta with ${ing1}, ${ing2} and ${ing3}`
+    );
+  },
+
+  orderPizza(mainIngridient, ...otherIngridients) {
+    console.log(mainIngridient);
+    console.log(otherIngridients);
+  },
+};
+
+console.log(restaurant2);
+console.log(restaurant2.order(2, 2));
+*/
+
+//////// optional chaining (?.) ////////
+/*
+// without optional chaining
+// console.log(restaurant.openingHours.mon.open); // TypeError
+
+// with optional chaining
+console.log(restaurant.openingHours.mon?.open); // undefined
+
+// example
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+for (const day of days) {
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
+  console.log(`On ${day}, we open at ${open} `);
+}
+
+// methods
+console.log(restaurant.order?.(0, 1));
+console.log(restaurant.cancel?.(1) ?? "no 'cancel' method");
+
+// arrays
+const users = [{ name: 'jonas', email: 'jonas@jonas.io' }];
+
+console.log(users[0]?.name ?? 'no such index');
+console.log(users[1]?.name ?? 'no such index');
+*/
+
+//////// looping objects ////////
+/*
+// keys
+const properties = Object.keys(restaurant.openingHours);
+console.log(properties);
+
+let openStr = `we are open on ${properties.length} days: `;
+for (const day of Object.keys(restaurant.openingHours)) {
+  openStr += `${day}, `;
+}
+
+console.log(openStr);
+
+// values
+const values = Object.values(restaurant.openingHours);
+console.log(values);
+
+// entries
+const entries = Object.entries(restaurant.openingHours);
+console.log(entries);
+
+for (const [key, { open, close }] of entries) {
+  console.log(`On ${key}, we are open at ${open} and close at ${close}`);
+}
+*/
+
+//////// sets ////////
