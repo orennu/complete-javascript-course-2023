@@ -460,3 +460,116 @@ for (const [key, { open, close }] of entries) {
 */
 
 //////// sets ////////
+/*
+const ordersSet = new Set([
+  'Pizza',
+  'Pasta',
+  'Pizza',
+  'Rissoto',
+  'Pasta',
+  'Pizza',
+]);
+
+console.log(ordersSet); // {'Pizza', 'Pasta', 'Rissoto'}
+console.log(ordersSet.size); // 3
+console.log(ordersSet.has('Pizza')); // true
+console.log(ordersSet.has('Bread')); // false
+
+ordersSet.add('Garlic Bread');
+ordersSet.add('Garlic Bread');
+console.log(ordersSet); // {'Pizza', 'Pasta', 'Rissoto', 'Garlic Bread'}
+
+ordersSet.delete('Rissoto');
+console.log(ordersSet); // {'Pizza', 'Pasta', 'Garlic Bread'}
+
+// ordersSet.clear();
+// console.log(ordersSet); // {}
+
+for (const order of ordersSet) console.log(order);
+
+// example
+const staff = ['Waiter', 'Chef', 'Manager', 'Waiter', 'Chef', 'Waiter'];
+const staffUnique = [...new Set(staff)];
+console.log(staffUnique); // ['Waiter', 'Chef', 'Manager']
+
+// unique letters in a string
+console.log(new Set('orennudelman').size); // 9
+*/
+
+//////// maps ////////
+/*
+const rest = new Map();
+rest.set('name', 'Classisco Italiano');
+rest.set(1, 'Firenze, Italy');
+rest.set(2, 'Lisbon, Portugal');
+console.log(rest);
+
+console.log(
+  rest
+    .set('Categories', restaurant.categories)
+    .set('open', 11)
+    .set('close', 23)
+    .set(true, 'We are open')
+    .set(false, 'We are close')
+);
+
+console.log(rest.get('name'));
+console.log(rest.get(true));
+console.log(rest.get(1));
+
+const time = 21;
+console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
+
+console.log(rest.has('Categories'));
+rest.delete(2);
+console.log(rest.size);
+
+// rest.clear();
+// console.log(rest);
+
+const arr = [1, 2];
+rest.set(arr, 'Test');
+
+console.log(rest.get(arr));
+
+rest.set(document.querySelector('h1'), 'heading');
+console.log(rest);
+*/
+
+//////// maps iteration ////////
+/*
+const question = new Map([
+  ['question', 'what is the best programming language in the world?'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  [4, 'Python'],
+  ['correct', 3],
+  [true, 'correct'],
+  [false, 'wrong, try again'],
+]);
+
+console.log(question);
+
+// convert object to map
+const hoursMap = new Map(Object.entries(restaurant.openingHours));
+console.log(hoursMap);
+
+// quiz app
+console.log(question.get('question'));
+
+for (const [key, value] of question) {
+  if (typeof key === 'number') {
+    console.log(`${key}. ${value}`);
+  }
+}
+
+const answer = Number(prompt('Your answer:'));
+console.log(question.get(answer === question.get('correct')));
+
+// convert map to array
+console.log([...question]);
+console.log([...question.entries()]);
+console.log([...question.keys()]);
+console.log([...question.values()]);
+*/
