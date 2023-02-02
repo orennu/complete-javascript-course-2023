@@ -168,6 +168,7 @@ console.log(eurowings);
 */
 
 //////// the bind method ////////
+/*
 const lufthansa = {
   airline: 'Lufthansa',
   iataCode: 'LH',
@@ -245,3 +246,73 @@ const addVAT2 = addTax2Arrow(0.23);
 console.log(addTax2(0.1)(100));
 console.log(addTax2Arrow(0.1)(100));
 console.log(addVAT2(100));
+*/
+
+//////// immediately invoked function expressions (IIFE) ////////
+/*
+(function () {
+  console.log('This will never run again');
+})();
+
+(() => console.log('This will also never run again'))();
+*/
+
+//////// closures ////////
+/*
+const secureBooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    debugger;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+
+const booker = secureBooking();
+
+booker();
+booker();
+booker();
+*/
+
+//////// more closures ////////
+/*
+// example 1
+let f;
+
+const g = function () {
+  const a = 23;
+  f = function () {
+    debugger;
+    console.log(a * 2);
+  };
+};
+
+const h = function () {
+  const b = 700;
+  f = function () {
+    debugger;
+    console.log(b * 2);
+  };
+};
+
+g();
+f();
+h();
+f();
+
+// example 2
+const boardPassengers = function (n, wait) {
+  const perGroup = n / 3;
+
+  setTimeout(function () {
+    debugger;
+    console.log(`We are now boarding all ${n} passengers`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers`);
+  }, wait * 1000);
+  console.log(`Will start boarding in ${wait} seconds`);
+};
+
+boardPassengers(180, 3);
+*/
