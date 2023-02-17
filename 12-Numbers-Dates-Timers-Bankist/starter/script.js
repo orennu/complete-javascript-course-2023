@@ -308,7 +308,7 @@ console.log(Math.PI * Number.parseFloat('10px') ** 2); // circle area
 console.log(Math.trunc(Math.random() * 6) + 1); // random number between 1 and 6
 
 const randomInt = (min, max) =>
-  Math.floor(Math.random() * (max - min) + 1) + min;
+  Math.floor(Math.random() * (max - min + 1) + min);
 
 console.log(randomInt(0, 7));
 console.log(randomInt(10, 30));
