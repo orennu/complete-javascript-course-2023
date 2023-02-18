@@ -213,3 +213,18 @@ console.log(h1.parentElement.children);
     el.style.transform = 'scale(0.7)';
   }
 });
+
+//////// lifecyscle DOM events ////////
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('DOMContentLoaded', e);
+});
+
+window.addEventListener('load', function (e) {
+  console.log('load', e);
+});
+
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  console.log('beforeunload', e);
+  e.returnValue = '';
+});
