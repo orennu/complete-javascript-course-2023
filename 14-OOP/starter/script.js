@@ -328,3 +328,64 @@ console.log(mike instanceof Student); // true
 console.log(mike instanceof Person); // true
 console.log(mike instanceof Object); // true
 */
+
+//////// inheritance between "classes": ES6 classes ////////
+/*
+class PersonCl {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  calcAge() {
+    console.log(new Date().getFullYear() - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.fullName}`);
+  }
+
+  get age() {
+    return new Date().getFullYear() - this.birthYear;
+  }
+
+  set fullName(name) {
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name!`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+
+  static hey() {
+    console.log('Hey there 🖐️');
+  }
+}
+
+class StudentCl extends PersonCl {
+  constructor(fullName, birthYear, course) {
+    // call to super need to happen first
+    super(fullName, birthYear);
+    this.course = course;
+  }
+
+  introduce() {
+    console.log(`My name is ${this._fullName} and I study ${this.course}`);
+  }
+
+  calcAge() {
+    console.log(
+      `I'm ${
+        new Date().getFullYear() - this.birthYear
+      } years old, but as a student I feel more like ${
+        new Date().getFullYear() - this.birthYear + 10
+      }.`
+    );
+  }
+}
+
+const martha = new StudentCl('Martha Jones', 2001, 'Compuetr Science');
+martha.introduce();
+martha.calcAge();
+*/
