@@ -389,3 +389,183 @@ const martha = new StudentCl('Martha Jones', 2001, 'Compuetr Science');
 martha.introduce();
 martha.calcAge();
 */
+
+//////// inheritance between "classes": Object.create ////////
+/*
+const PersonProto = {
+  calcAge() {
+    console.log(new Date().getFullYear() - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const steven = Object.create(PersonProto);
+steven.init('Steven', 2002);
+
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function (firstName, birthYear, course) {
+  PersonProto.init.call(this, firstName, birthYear);
+  this.course = course;
+};
+StudentProto.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const jay = Object.create(StudentProto);
+jay.init('Jay', 2003, 'Biology');
+
+console.log(steven);
+console.log(jay);
+jay.introduce();
+jay.calcAge();
+*/
+
+//////// another class example ////////
+/*
+// protected class properties and methods by convention
+class Account {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    // Protected property
+    this._pin = pin;
+    this._movements = [];
+    this.locale = navigator.language;
+
+    console.log(`Thanks for openning an account, ${owner}`);
+  }
+
+  getMovements() {
+    return this._movements;
+  }
+
+  deposit(val) {
+    this._movements.push(val);
+  }
+
+  withdraw(val) {
+    this.deposit(-val);
+  }
+
+  // protected method
+  _approveLoan(val) {
+    return true;
+  }
+  requestLoan(val) {
+    if (this._approveLoan(val)) {
+      this.deposit(val);
+      console.log('Loan approved');
+    }
+  }
+}
+
+const acc1 = new Account('Oren', 'EUR', 1111);
+// console.log(acc1);
+
+acc1.deposit(1000);
+acc1.withdraw(200);
+console.log(acc1);
+
+// acc1.movements = [1000, 2000];
+// acc1.movements.push(5000);
+acc1.requestLoan(1000);
+// acc1.approveLoan(1000);
+
+console.log(acc1);
+*/
+
+// private fields
+// public fields
+// private methods
+// public methods
+
+/*
+class Account2 {
+  // public fields
+  locale = navigator.language;
+
+  // private fields
+  #movements = [];
+  #pin;
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.#pin = pin;
+
+    console.log(`Thanks for openning an account, ${owner}`);
+  }
+
+  // public methods
+  getMovements() {
+    return this.#movements;
+  }
+
+  deposit(val) {
+    this.#movements.push(val);
+  }
+
+  withdraw(val) {
+    this.deposit(-val);
+  }
+
+  requestLoan(val) {
+    if (this.#approveLoan(val)) {
+      this.deposit(val);
+    }
+  }
+
+  // private method
+  #approveLoan(val) {
+    console.log('Loan approved');
+    return true;
+  }
+}
+
+const acc2 = new Account2('Oren', 'EUR', 1111);
+// console.log(acc2);
+
+acc2.deposit(1000);
+acc2.withdraw(200);
+console.log(acc2);
+// console.log(acc2.#movements); // error
+// console.log(acc2.#pin); // error
+
+// acc2.#movements = [1000, 2000]; // error
+// acc2.#movements.push(5000); // error
+acc2.requestLoan(5000);
+// acc2.#approveLoan(1000); // error
+
+console.log(acc2);
+*/
+
+//////// chaining methods ////////
+/*
+class Car {
+  #kilometers = 0;
+
+  constructor(brand, color) {
+    this.brand = brand;
+    this.color = color;
+  }
+
+  drive(distance) {
+    this.#kilometers += distance;
+    return this; // this make the method chainable
+  }
+
+  get kilometers() {
+    return this.#kilometers;
+  }
+}
+
+const bmw = new Car('BMW', 'red');
+console.log(bmw.kilometers);
+
+bmw.drive(32).drive(40).drive(100);
+console.log(bmw.kilometers);
+*/
