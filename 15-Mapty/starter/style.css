@@ -162,6 +162,10 @@ a:visited {
   transition: all 0.2s;
 }
 
+.form__input--type {
+  width: fit-content;
+}
+
 .form__input:focus {
   outline: none;
   background-color: #fff;
@@ -217,4 +221,25 @@ a:visited {
 }
 .cycling-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--1);
+}
+
+.reset-btn {
+  width: fit-content;
+  background-color: #42484d;
+  border-radius: 20%;
+  border-style: ridge;
+  cursor: pointer;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 5px;
+  text-align: center;
+}
+
+.reset-btn--hidden {
+  display: none;
+}
+
+.reset-btn:hover,
+.reset-btn:focus {
+  background-color: #f082ac;
 }
