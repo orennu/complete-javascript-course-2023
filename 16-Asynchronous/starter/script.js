@@ -382,3 +382,148 @@ btn.addEventListener('click', function () {
   getCountryData('australia');
 });
 */
+
+//////// event loop in action ////////
+/*
+console.log('test start');
+setTimeout(() => console.log('0 seconds timer'), 0);
+Promise.resolve('Resolved promise 1').then(res => console.log(res));
+Promise.resolve('Resolved promise 2').then(res => {
+  for (let i = 0; i < 1000000000; i++) {}
+  console.log(res);
+});
+console.log('test end');
+*/
+
+//////// build a simple promise ////////
+/*
+const lotteryPromise = new Promise(function (resolve, reject) {
+  console.log('lottery is happening');
+  setTimeout(function () {
+    if (Math.random() >= 0.5) {
+      resolve('You win 💰');
+    } else {
+      reject(new Error('You lost 💩'));
+    }
+  }, 2000);
+});
+
+lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
+
+// promisifying setTimeout
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+
+wait(1)
+  .then(() => {
+    console.log('1 second passed');
+    return wait(1);
+  })
+  .then(() => {
+    console.log('2 seconds passed');
+    return wait(1);
+  })
+  .then(() => {
+    console.log('3 seconds passed');
+    return wait(1);
+  })
+  .then(() => console.log('4 seconds passed'));
+
+Promise.resolve('abc').then(x => console.log(x));
+Promise.reject(new Error('problem!')).catch(x => console.error(x));
+*/
+
+//////// promisifying the geolocation api ////////
+/*
+// navigator.geolocation.getCurrentPosition(
+//   position => console.log(position),
+//   err => console.error(err)
+// );
+
+console.log('Getting position');
+
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+const renderCountry = function (data, className = '') {
+  const html = `
+                    <article class="country ${className}">
+                        <img class="country__img" src="${data.flag}" />
+                        <div class="country__data">
+                            <h3 class="country__name">${data.name}</h3>
+                            <h4 class="country__region">${data.region}</h4>
+                            <p class="country__row"><span>👫</span>${(
+                              +data.population / 1000000
+                            ).toFixed(1)}M people</p>
+                            <p class="country__row"><span>🗣️</span>${
+                              data.languages[0].name
+                            }</p>
+                            <p class="country__row"><span>💰</span>${
+                              data.currencies[0].name
+                            }</p>
+                        </div>
+                    </article>
+                    `;
+
+  countriesContainer.insertAdjacentHTML('beforeend', html);
+};
+
+// getPosition()
+//   .then(pos => console.log(pos))
+//   .catch(err => console.error(err));
+
+const whereAmI = function () {
+  getPosition()
+    .then(pos => {
+      const { latitude: lat, longitude: lng } = pos.coords;
+      return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(
+          `Request quota reached, try again later (${response.status})`
+        );
+      }
+      return response.json();
+    })
+    .then(json => {
+      const country = json.country;
+      let city = json.city;
+      city = `${city[0]}${city.slice(1).toLowerCase()}`;
+      console.log(`You are in ${city}, ${country}`);
+
+      return fetch(`https://restcountries.com/v2/name/${country.toLowerCase()}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(
+              `Country "${country}" not found (${response.status})`
+            );
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data.length > 1) {
+            renderCountry(data[1]);
+          } else {
+            renderCountry(data[0]);
+          }
+        });
+    })
+    .catch(err => {
+      console.error(`${err.message} 🤮`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
+};
+
+btn.addEventListener('click', whereAmI);
+*/
+
+//////// consuming promises with async/await ////////
