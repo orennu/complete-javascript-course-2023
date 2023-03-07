@@ -2,9 +2,9 @@
 console.log('Exporting module');
 
 // blocking code - this will block the importing module execution until this module execution is finished
-console.log('start fetching users');
-await fetch('https://jsonplaceholder.typicode.com/users');
-console.log('finish fetching users');
+// console.log('start fetching users');
+// await fetch('https://jsonplaceholder.typicode.com/users');
+// console.log('finish fetching users');
 
 const shippingCost = 10;
 export const cart = [];

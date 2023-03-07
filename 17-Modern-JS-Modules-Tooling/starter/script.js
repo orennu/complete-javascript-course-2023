@@ -64,3 +64,99 @@ console.log(lastPost); // Promise
 const lastPost2 = await getLastPost();
 console.log(lastPost2);
 */
+
+//////// the module pattern ////////
+/*
+const ShoppingCart2 = (function () {
+  const cart = [];
+  const shippingCost = 10;
+  const totalPrice = 237;
+  const totalQuantities = 23;
+
+  const addToCart = function (product, quantity) {
+    cart.push({ product, quantity });
+    console.log(`${quantity} ${product} added to cart`);
+  };
+
+  const orderStock = function (product, quantity) {
+    console.log(`${quantity} ${product} order from supplier`);
+  };
+
+  return {
+    addToCart,
+    cart,
+    totalPrice,
+    totalQuantities,
+  };
+})();
+
+ShoppingCart2.addToCart('apple', 4);
+ShoppingCart2.addToCart('pizza', 2);
+console.log(ShoppingCart2);
+console.log(ShoppingCart2.shippingCost); // undefined
+*/
+
+//////// CommonJS Modules ////////
+/*
+// will not work with browser, relevant for nodeJS
+// export
+export.addToCart = function (product, quantity) {
+  cart.push({ product, quantity });
+  console.log(`${quantity} ${product} added to cart`);
+};
+
+// import
+const { addToCart } = require('./shoppingCart.js');
+*/
+
+//////// intro to npm ////////
+/*
+import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+
+const state = {
+  cart: [
+    { product: 'bread', quantity: 5 },
+    { product: 'pizza', quantity: 5 },
+  ],
+  user: {
+    loggedIn: true,
+  },
+};
+
+const stateCloned = Object.assign({}, state);
+const stateDeepClone = cloneDeep(state);
+state.user.loggedIn = false;
+console.log(stateCloned.user.loggedIn); // false
+console.log(stateDeepClone.user.loggedIn); // true
+*/
+
+// import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+import { cloneDeep } from 'lodash-es';
+import { addToCart, cart } from './shoppingCart.js';
+
+const state = {
+  cart: [
+    { product: 'bread', quantity: 5 },
+    { product: 'pizza', quantity: 5 },
+  ],
+  user: {
+    loggedIn: true,
+  },
+};
+
+console.log(cart);
+
+addToCart('pizza', 2);
+addToCart('bread', 5);
+addToCart('apples', 4);
+
+console.log(cart);
+
+const stateDeepClone = cloneDeep(state);
+state.user.loggedIn = false;
+console.log(stateDeepClone);
+console.log(stateDeepClone.user.loggedIn); // true
+
+if (module.hot) {
+  module.hot.accept();
+}
