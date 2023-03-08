@@ -128,7 +128,7 @@ const stateDeepClone = cloneDeep(state);
 state.user.loggedIn = false;
 console.log(stateCloned.user.loggedIn); // false
 console.log(stateDeepClone.user.loggedIn); // true
-*/
+
 
 // import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
 import { cloneDeep } from 'lodash-es';
@@ -160,3 +160,26 @@ console.log(stateDeepClone.user.loggedIn); // true
 if (module.hot) {
   module.hot.accept();
 }
+
+class Person {
+  greeting = 'Hey';
+
+  constructor(name) {
+    this.name = name;
+    console.log(`${this.greeting}, ${this.name}`);
+  }
+}
+
+const oren = new Person('Oren');
+
+console.log('oren' ?? null);
+
+console.log(cart.find(el => el.quantity >= 2));
+
+Promise.resolve('TEST').then(x => console.log(x));
+
+import 'core-js/stable';
+
+// polifiling async functions
+import 'regenerator-runtime/runtime';
+*/
